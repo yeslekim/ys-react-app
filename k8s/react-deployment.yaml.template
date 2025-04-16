@@ -16,5 +16,6 @@ spec:
       containers:
         - name: react-app
           image: __IMAGE_TAG__
+          imagePullPolicy: Always
           ports:
             - containerPort: 80

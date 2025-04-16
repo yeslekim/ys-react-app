@@ -4,7 +4,7 @@ pipeline {
   environment {
     REGISTRY = "10.1.223.21:5000"
     IMAGE_NAME = "react-app"
-    IMAGE_TAG = "${REGISTRY}/${IMAGE_NAME}:${BUILD_NUMBER}"
+    IMAGE_TAG = "${REGISTRY}/${IMAGE_NAME}:${BUILD_NUMBER}-${new Date().getTime()}"
     K8S_NAMESPACE = "default"
   }
 
