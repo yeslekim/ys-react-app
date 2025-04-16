@@ -11,7 +11,8 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-        git url: 'http://10.1.218.84/achiv/arc-react-app.git'
+        git url: 'http://10.1.218.84/achiv/arc-react-app.git',
+        credentialsId: 'gitlab-token'
       }
     }
 
