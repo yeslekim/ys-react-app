@@ -26,7 +26,7 @@ pipeline {
     stage('Build Image') {
       steps {
         sh """
-          nerdctl build -t ${IMAGE_TAG} .
+          sudo nerdctl build -t ${IMAGE_TAG} .
         """
       }
     }
@@ -34,7 +34,7 @@ pipeline {
     stage('Push to Registry') {
       steps {
         sh """
-          nerdctl push ${IMAGE_TAG}
+          sudo nerdctl push ${IMAGE_TAG}
         """
       }
     }
