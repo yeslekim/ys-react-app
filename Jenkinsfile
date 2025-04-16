@@ -45,12 +45,15 @@ pipeline {
           if (result != 0) {
             sh """
               sed 's|__IMAGE_TAG__|${IMAGE_TAG}|g' k8s/react-deployment.yaml.template > k8s/react-deployment.yaml
-              kubectl apply -f k8s/react-deployment.yaml
-              kubectl apply -f k8s/react-service.yaml
             """
           } else {
             sh "kubectl set image deployment/react-app react-app=${IMAGE_TAG} -n ${K8S_NAMESPACE}"
           }
+            sh """
+                kubectl delete svc react-service --ignore-not-found
+                kubectl apply -f k8s/react-deployment.yaml
+                kubectl apply -f k8s/react-service.yaml
+            """
         }
       }
     }
