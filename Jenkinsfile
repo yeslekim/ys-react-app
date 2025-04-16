@@ -42,10 +42,13 @@ pipeline {
     stage('Deploy to K8s') {
       steps {
         script {
-          def result = sh(script: "kubectl get deployment react-app -n default", returnStatus: true)
+          def result = sh(script: "kubectl get deployment react-app -n ${K8S_NAMESPACE}", returnStatus: true)
           if (result != 0) {
-            sh "kubectl apply -f k8s/react-deployment.yaml"
-            sh "kubectl apply -f k8s/react-service.yaml"
+            sh """
+              sed 's|__IMAGE_TAG__|${IMAGE_TAG}|g' k8s/react-deployment.yaml.template > k8s/react-deployment.yaml
+              kubectl apply -f k8s/react-deployment.yaml
+              kubectl apply -f k8s/react-service.yaml
+            """
           } else {
             sh "kubectl set image deployment/react-app react-app=${IMAGE_TAG} -n ${K8S_NAMESPACE}"
           }
