@@ -34,7 +34,7 @@ pipeline {
     stage('Push to Registry') {
       steps {
         sh """
-          sudo nerdctl push ${IMAGE_TAG}
+          sudo nerdctl --insecure-registry ${REGISTRY} push ${IMAGE_TAG}
         """
       }
     }
