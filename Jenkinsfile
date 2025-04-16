@@ -26,7 +26,7 @@ pipeline {
     stage('Build Image') {
       steps {
         sh """
-          sudo nerdctl build -t ${IMAGE_TAG} .
+          sudo nerdctl build --no-cache -t ${IMAGE_TAG} .
         """
       }
     }
