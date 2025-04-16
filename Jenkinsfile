@@ -25,9 +25,8 @@ pipeline {
 
     stage('Build Image') {
       steps {
-        sh """
-          sudo nerdctl build --no-cache -t ${IMAGE_TAG} .
-        """
+        sh "cat nginx.conf"  // 실제로 빌드 전에 확인!
+        sh "sudo nerdctl build --no-cache -t ${IMAGE_TAG} ."
       }
     }
 
