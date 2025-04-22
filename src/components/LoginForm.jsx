@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { login as loginAPI } from "../api/auth";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -7,12 +7,17 @@ import { Link } from "react-router-dom";
 const LoginForm = () => {
   const [form, setForm] = useState({ username: "", password: "" });
   const [error, setError] = useState("");
-  const { login } = useAuth(); // 여기서 login 함수 가져옴
+  const { login, resetToken } = useAuth(); // 여기서 login 함수 가져옴
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
+
+  useEffect(() => {
+    resetToken();
+  }, [])
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,7 +25,7 @@ const LoginForm = () => {
 
     try {
       const tokens = await loginAPI(form);
-      login(tokens); // AuthContext에 저장
+      login(tokens, form.username); // AuthContext에 저장
       console.log("로그인 성공, AuthContext에 저장 완료!");
       navigate("/home");
     } catch (err) {
