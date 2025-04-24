@@ -15,7 +15,6 @@ export const AuthProvider = ({ children }) => {
 
   // 앱 시작 시 localStorage에서 토큰 로드
   useEffect(() => {
-    console.log("isLoading: ", isLoading);
     const storedAccess = localStorage.getItem("access_token");
     const storedRefresh = localStorage.getItem("refresh_token");
     const username = localStorage.getItem("user_name");

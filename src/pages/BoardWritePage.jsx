@@ -33,7 +33,6 @@ const BoardWritePage = ({ isEdit = false }) => {
             let result = false;
             if (isEdit) {
                 result = await updateBoard({ id, ...form, username });
-                console.log(result);
             } else {
                 result = await createBoard({ ...form, username });
             }
