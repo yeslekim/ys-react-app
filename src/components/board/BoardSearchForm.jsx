@@ -1,8 +1,12 @@
-const BoardSearchForm = ({ searchType, keyword, sort, onSearch, onSortChange }) => {
+import AutocompleteInput from "./AutocompleteInput";
+import { saveKeyword } from "../../api/keyword";
+
+const BoardSearchForm = ({ searchType, keyword, setKeyword, sort, onSearch, onSortChange }) => {
     return (
       <form
         onSubmit={(e) => {
           e.preventDefault();
+          saveKeyword(keyword);
           onSearch(searchType, keyword);
         }}
         className="flex flex-wrap items-center justify-between gap-4 bg-white p-4 rounded-xl shadow"
@@ -17,14 +21,24 @@ const BoardSearchForm = ({ searchType, keyword, sort, onSearch, onSortChange }) 
             <option value="CONTENT">내용</option>
             <option value="USERNAME">작성자</option>
           </select>
+
+          <AutocompleteInput
+            value={keyword}
+            onChange={setKeyword}
+            onSelect={(word) => {
+              setKeyword(word);
+              saveKeyword(word);
+              onSearch(searchType, word);
+            }}
+          />
   
-          <input
+          {/* <input
             type="text"
             value={keyword}
             onChange={(e) => onSearch(searchType, e.target.value)}
             placeholder="검색어 입력"
             className="border px-3 py-2 rounded-lg w-60"
-          />
+          /> */}
   
           <button
             type="submit"

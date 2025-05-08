@@ -50,6 +50,7 @@ const BoardListPage = () => {
       <BoardSearchForm
         searchType={searchType}
         keyword={keyword}
+        setKeyword={setKeyword}
         sort={sort}
         onSearch={handleSearch}
         onSortChange={(s) => {

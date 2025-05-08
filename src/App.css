@@ -40,3 +40,10 @@
 .read-the-docs {
   color: #888;
 }
+
+.max-h-60 {
+  max-height: 15rem;
+}
+.overflow-y-auto {
+  overflow-y: auto;
+}
